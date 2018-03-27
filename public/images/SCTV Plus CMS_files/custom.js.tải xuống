@@ -1,0 +1,118 @@
+(function () {
+  console = console || {};
+  console.error = function (msg) {
+    if (!msg.includes("You are manually calling a React.PropTypes validation")) {
+      console.log(msg);
+    }
+  };
+  setTimeout(() => {
+    checkUrl();
+  });
+})();
+
+$(window).on("hashchange", function () {
+  checkUrl();
+});
+
+$(document).ready(function () {
+  toastr.options = {
+    "closeButton": true,
+    "closeHtml": '<button><i class="fa fa-times"></i></button>',
+    "debug": false,
+    "newestOnTop": true,
+    "progressBar": false,
+    "positionClass": "toast-top-right",
+    "preventDuplicates": false,
+    "onclick": null,
+    "tapToDismiss": false,
+    "showDuration": "300",
+    "hideDuration": "1000",
+    "timeOut": "3000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+  }
+});
+
+function checkUrl() {
+  var url = location.href.split("#").splice(1).join("#");
+  var hash = '#' + url;
+  var query = url.split("?").splice(1);
+  console.log(query);
+  var path = url.replace("?" + query, "");
+  path = path.split("/")[1];
+  var path2 = url.replace("?" + query, "").split("/")[2];
+  var path3 = url.replace("?" + query, "").split("/")[3];
+  $(".td--menu-list .td--menu-item li.active").removeClass("active");
+  $("nav li.active").removeClass("active");
+  setTimeout(() => {
+    if (path === 'channel' || path === 'movie') {
+      $('.td--menu-list .td--menu-item li:has(a[href="#' + path + '/list"])').addClass("active");
+      $('nav li:has(a[href="#' + path + '/list"])').addClass("active");
+      $(".td--menu-list ul>li.active").attr("style", "display: block");
+      $(".td--menu-list .td--menu-item li.active ul li").attr("style", "display: block");
+    }
+    else if (path === 'config' && path2 === 'home') {
+      $('.td--menu-list .td--menu-item li:has(a[href="#' + path + '/' + path2 + '/' + 'slider"])').addClass("active");
+      $('nav li:has(a[href="#' + path + '/' + path2 + '/' + 'slider"])').addClass("active");
+      $(".td--menu-list ul>li.active").attr("style", "display: block");
+      $(".td--menu-list .td--menu-item li.active ul li").attr("style", "display: block");
+    }
+    else if (path === 'package') {
+      $('.td--menu-list .td--menu-item li:has(a[href="#' + path + '/' + path2 + '/' + 'list"])').addClass("active");
+      $('nav li:has(a[href="#' + path + '/' + path2 + '/' + 'list"])').addClass("active");
+      $(".td--menu-list ul>li.active").attr("style", "display: block");
+      $(".td--menu-list .td--menu-item li.active ul li").attr("style", "display: block");
+    }
+    else if (path === 'config') {
+      $('.td--menu-list .td--menu-item li:has(a[href="#' + path + '/' + path2 + '"])').addClass("active");
+      $('nav li:has(a[href="#' + path + '/' + path2 + '"])').addClass("active");
+      $(".td--menu-list ul>li.active").attr("style", "display: block");
+      $(".td--menu-list .td--menu-item li.active ul li").attr("style", "display: block");
+      
+    }
+    else if (path === 'lookup') {
+      if (path2 === 'customer' || path3) {
+        $('.td--menu-list .td--menu-item li:has(a[href="#' + path + '/customer"])').addClass("active");
+        $('nav li:has(a[href="#' + path + '/customer"])').addClass("active");
+        $(".td--menu-list ul>li.active").attr("style", "display: block");
+        $(".td--menu-list .td--menu-item li.active ul li").attr("style", "display: block");
+      }
+      else {
+        $('.td--menu-list .td--menu-item li:has(a[href="#' + path + '/' + path2 + '"])').addClass("active");
+        $('nav li:has(a[href="#' + path + '/' + path2 + '"])').addClass("active");
+        $(".td--menu-list ul>li.active").attr("style", "display: block");
+        $(".td--menu-list .td--menu-item li.active ul li").attr("style", "display: block");
+      }
+    }
+    else if (path === 'warranty') {
+      $('.td--menu-list .td--menu-item li:has(a[href="#' + path + '/' + path2 + '/' + path3 + '"])').addClass("active");
+      $('nav li:has(a[href="#' + path + '/' + path2 + '/' + path3 + '"])').addClass("active");
+      $(".td--menu-list ul>li.active").attr("style", "display: block");
+      $(".td--menu-list .td--menu-item li.active ul li").attr("style", "display: block");
+    }
+    else if (path === 'statistic') {
+      $('.td--menu-list .td--menu-item li:has(a[href="#' + path + '/' + path2 + '"])').addClass("active");
+      $('nav li:has(a[href="#' + path + '/' + path2 + '"])').addClass("active");
+      $(".td--menu-list ul>li.active").attr("style", "display: block");
+      $(".td--menu-list .td--menu-item li.active ul li").attr("style", "display: block");
+    }
+    else {
+      $('.td--menu-list .td--menu-item li:has(a[href="#' + path + '/' + path2 + '"])').addClass("active");
+      $('nav li:has(a[href="#' + path + '/' + path2 + '"])').addClass("active");
+      $(".td--menu-list ul>li.active").attr("style", "display: block");
+      $(".td--menu-list .td--menu-item li.active ul li").attr("style", "display: block");
+    }
+  });
+  setTimeout(() => {
+    $(".td--menu-list ul>li.active").attr("style", "display: block");
+    $(".td--menu-list .td--menu-item li.active ul li").attr("style", "display: block");
+    var value = $(".td--menu-item li.active").attr("data-attr");
+    setTimeout(() => {
+      $(".td--menu-item li." + value).attr("style", "display: inline-block");
+      $(".td--menu-item li." + value + " ul li").attr("style", "display: block");
+    });
+  });
+}
